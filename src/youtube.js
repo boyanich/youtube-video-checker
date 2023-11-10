@@ -26,18 +26,17 @@ async function get_link2info(link) {
     .then(res => {
       let json = JSON.parse(res.data.split("ytInitialData = ")[1].split(";</script>")[0]);
       let content = json.contents.twoColumnWatchNextResults.results.results.contents[0].videoPrimaryInfoRenderer;
-    
-      let title = content.title.runs[0].text;
-      let view = parseInt(content.viewCount.videoViewCountRenderer.viewCount.simpleText.replace(/[^0-9]/g, ""));
-      let hashtag = (content.superTitleLink || { runs : [] }).runs.map(c => c.text).filter(v => v.trim().length > 0);
-      let date = content.dateText.simpleText;
-    
-      resolve({
-        title, 
-        view,
-        hashtag,
-        date
-      });
+      if (content === undefined) {
+        reject(err);
+      } else {
+        resolve({
+          content
+        });
+      }
+      //let title = content.title.runs[0].text;
+      //let view = parseInt(content.viewCount.videoViewCountRenderer.viewCount.simpleText.replace(/[^0-9]/g, ""));
+      //let hashtag = (content.superTitleLink || { runs : [] }).runs.map(c => c.text).filter(v => v.trim().length > 0);
+      //let date = content.dateText.simpleText;
     })
     .catch(err => {
       reject(err);
