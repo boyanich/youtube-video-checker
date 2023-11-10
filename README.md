@@ -1,3 +1,5 @@
+# Это слегка подправленная версия оригинального YTV, которая возвращает только статус видео: "Успех" или "ERROR"
+
 # ytv
 node.js module to Manage Youtube Video Information  
 
